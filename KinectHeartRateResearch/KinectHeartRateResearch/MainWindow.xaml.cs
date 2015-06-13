@@ -83,7 +83,7 @@ namespace KinectHeartRateResearch
             var currentDir = System.Environment.CurrentDirectory.Replace('\\', '/');
             if (!m_JADE_Loaded)
             {
-                engine.Evaluate("install.packages('JADE', repos='http://cran.rstudio.com/bin/windows/contrib/3.2/JADE_1.9-92.zip'");
+                var res = engine.Evaluate("install.packages('JADE', repos='http://cran.rstudio.com/')");
                 engine.Evaluate("library(JADE)");
                 m_JADE_Loaded = true;
             }
@@ -523,7 +523,7 @@ namespace KinectHeartRateResearch
                             double norm_green = prime_green / size;
                             double norm_ir = prime_ir / size;
 
-                            string data = string.Format("{0},{1},{2},{3},{4},{5}\n", m_secondsElapsed.ElapsedMilliseconds, norm_alpha, norm_red, norm_green, norm_blue, norm_ir);
+                            string data = string.Format(new System.Globalization.CultureInfo("en-GB"), "{0},{1},{2},{3},{4},{5}\n", m_secondsElapsed.ElapsedMilliseconds, norm_alpha, norm_red, norm_green, norm_blue, norm_ir);
 
                             var bytesToWrite = System.Text.Encoding.UTF8.GetBytes(data);
                             m_fileStream.WriteAsync(bytesToWrite, 0, bytesToWrite.Length);
